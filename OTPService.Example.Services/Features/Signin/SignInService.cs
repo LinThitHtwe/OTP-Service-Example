@@ -1,18 +1,45 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace OTPService.Example.Services.Features.Signin;
 
-public class SignInService
+public class SigninService
 {
     private readonly AppDbContext _db;
 
-    public SignInService(AppDbContext db)
+    public SigninService(AppDbContext db)
     {
         _db = db;
     }
 
-    public async Task<List<User>> Test()
+    public async Task<Result<SigninResponseModel>> SigninAsync(SigninRequestModel requestModel)
     {
-        return await _db.Users.ToListAsync();
+        var user = await _db.Users
+                 .FirstOrDefaultAsync(u => u.Email == requestModel.Email);
+
+        if (user == null)
+        {
+            return Result<SigninResponseModel>.ValidationError("");
+        }
+
+        bool isPasswordValid = PasswordHasher.VerifyPassword(requestModel.Password, user.Password);
+
+        if (!isPasswordValid)
+        {
+            return Result<SigninResponseModel>.ValidationError("");
+        }
+
+        SigninResponseModel signin = new()
+        {
+            Email = user.Email,
+            Name = user.Username,
+            SessionExpiredTime = DateTime.Now.AddMinutes(5),
+            UserId = user.Id,
+        };
+
+        var token = signin.ToJson().ToEncrypt();
+        signin.Token = token;
+
+        return Result<SigninResponseModel>.Success(signin);
     }
 }

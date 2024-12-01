@@ -1,9 +1,9 @@
 ﻿namespace OTPService.Example.Services.Features.Signin;
 
-public static class SignInExtention
+public static class SigninExtention
 {
-    public static void AddSignInService(this WebApplicationBuilder builder)
+    public static void AddSigninService(this WebApplicationBuilder builder)
     {
-        builder.Services.AddScoped<SignInService>();
+        builder.Services.AddScoped<SigninService>();
     }
 }
