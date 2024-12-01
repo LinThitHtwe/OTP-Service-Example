@@ -43,7 +43,6 @@ public class SignupService
         }
         catch (Exception ex)
         {
-
             return Result<SignupResponseModel>.Failure("");
         }
     }

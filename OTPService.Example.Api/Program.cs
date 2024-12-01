@@ -1,11 +1,10 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using OTPService.Example.Api;
 using OTPService.Example.Api.AppDbContextModels;
 using OTPService.Example.Models.Features.Signin;
 using OTPService.Example.Models.Features.Signup;
 using OTPService.Example.Services.Features.Signin;
 using OTPService.Example.Services.Features.Signup;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,17 +35,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//app.MapGet("/test", async (SigninService signinService) =>
-//{
-//    var users = await signInService.Test();
-//    return users;
-//})
-//.WithName("Test")
-//.WithOpenApi();
-
 app.MapPost("/signup",async (SignupService signupService,SignupRequestModel signupRequestModel) =>
 {
-    await signupService.Signup(signupRequestModel);
+    var response = await signupService.Signup(signupRequestModel);
+    return BaseResponseHelper.Execute(response);
 })
 .WithName("Signup")
 .WithOpenApi();
@@ -54,13 +46,7 @@ app.MapPost("/signup",async (SignupService signupService,SignupRequestModel sign
 app.MapPost("/signin", async (SigninService signinService, SigninRequestModel signinRequestModel) =>
 {
     var response = await signinService.SigninAsync(signinRequestModel);
-
-    if (response.IsValidationError)
-    {
-        return Results.BadRequest(new { message = "Validation failed", errors = response.Message });
-    }
-
-    return Results.Ok(response);
+    return BaseResponseHelper.Execute(response);
 })
 .WithName("Signin")
 .WithOpenApi();
