@@ -6,7 +6,9 @@ using OTPService.Example.Models.Features.Signin;
 using OTPService.Example.Models.Features.Signup;
 using OTPService.Example.Services.Features.FluentEmail;
 using OTPService.Example.Services.Features.OTPVerify;
+using OTPService.Example.Services.Features.ResendOTP;
 using OTPService.Example.Services.Features.SendMail;
+using OTPService.Example.Services.Features.SendOTP;
 using OTPService.Example.Services.Features.Signin;
 using OTPService.Example.Services.Features.Signup;
 
@@ -31,6 +33,8 @@ builder.AddSigninService();
 builder.AddSignupService();
 builder.AddSendMailService();
 builder.AddOTPVerifyService();
+builder.AddSendOTPService();
+builder.AddResendOTPService();
 
 var app = builder.Build();
 
@@ -67,7 +71,12 @@ app.MapPost("/signin", async (SigninService signinService, SigninRequestModel si
 .WithName("Signin")
 .WithOpenApi();
 
-
-
+app.MapPost("/resent-otp", async (ResendOTPService resendOTPService, ResentOTPRequestModel resentOTPRequest) =>
+{
+    var response = await resendOTPService.ResendOTP(resentOTPRequest);
+    return BaseResponseHelper.Execute(response);
+})
+.WithName("ResentOTP")
+.WithOpenApi();
 
 app.Run();

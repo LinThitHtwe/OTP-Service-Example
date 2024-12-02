@@ -1,4 +1,5 @@
 ﻿using FluentEmail.Core;
+using OTPService.Example.Database.AppDbContextModels;
 using OTPService.Example.Models.Features.OTP;
 
 namespace OTPService.Example.Services.Features.SendMail;

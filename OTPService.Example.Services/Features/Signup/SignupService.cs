@@ -7,14 +7,14 @@ namespace OTPService.Example.Services.Features.Signup;
 public class SignupService
 {
     private readonly AppDbContext _db;
-    private readonly SendMailService _sendMailService;
     private readonly OTPVerifyService _otpVerifyService;
+    private readonly SendOTPService _sendOTPService;
 
-    public SignupService(AppDbContext db, SendMailService sendMailService, OTPVerifyService otpVerifyService)
+    public SignupService(AppDbContext db, OTPVerifyService otpVerifyService, SendOTPService sendOTPService)
     {
         _db = db;
-        _sendMailService = sendMailService;
         _otpVerifyService = otpVerifyService;
+        _sendOTPService = sendOTPService;
     }
 
     public async Task<Result<SignupResponseModel>> Signup(SignupRequestModel signupRequestModel)
@@ -39,7 +39,7 @@ public class SignupService
             _db.Users.Add(user);
             await _db.SaveChangesAsync();
 
-            await SendOTP(user.Id, user.Email);
+            await _sendOTPService.SendOTP(user.Id, user.Email);
 
             SignupResponseModel response = new()
             {
@@ -100,30 +100,5 @@ public class SignupService
         {
             return Result<VerifySignupOTPResponseModel>.Failure(ex.Message);
         }
-    }
-
-    private async Task SendOTP(int userId, string toMail)
-    {
-        string otpCode = OTPHelper.GenerateOTPCode();
-
-        Otp otp = new()
-        {
-            Otpcode = otpCode,
-            UserId = userId,
-            CreatedTime = DateTime.Now,
-            ExpireTime = DateTime.Now.AddMinutes(3),
-            Status = nameof(OTPStatusEnum.Active),
-        };
-
-        _db.Otps.Add(otp);
-        await _db.SaveChangesAsync();
-
-        OTPEmailViewModel otpEmailViewModel = new()
-        {
-            ExpiryTime = otp.ExpireTime,
-            OTPCode = otp.Otpcode
-        };
-
-        await _sendMailService.SendOTPMail(toMail, otpEmailViewModel);
     }
 }
