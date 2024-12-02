@@ -1,0 +1,74 @@
+﻿@model OTPService.Example.Models.Features.OTP.OTPEmailViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .otp-code {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4CAF50;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .instructions {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .footer {
+            font-size: 12px;
+            color: #aaa;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            Your OTP Code
+        </div>
+        <div class="otp-code">
+            @Model.OTPCode
+        </div>
+        <div class="instructions">
+            Please use the above code to complete your verification. This code is valid until
+            <strong>@Model.ExpiryTime.ToString("f")</strong>.
+        </div>
+        <div class="footer">
+            If you didn’t request this code, please ignore this email or contact our
+            <a href="">support team</a>.
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace OTPService.Example.Api.AppDbContextModels;
+﻿namespace OTPService.Example.Database.AppDbContextModels;
 
 public partial class Otp
 {

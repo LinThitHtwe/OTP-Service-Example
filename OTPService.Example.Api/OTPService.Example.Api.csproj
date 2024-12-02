@@ -4,6 +4,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<PreserveCompilationContext>true</PreserveCompilationContext>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -18,8 +19,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\OTPService.Example.Database\OTPService.Example.Database.csproj" />
-	  <ProjectReference Include="..\OTPService.Example.Services\OTPService.Example.Services.csproj" />
+		<ProjectReference Include="..\OTPService.Example.Database\OTPService.Example.Database.csproj" />
+		<ProjectReference Include="..\OTPService.Example.Models\OTPService.Example.Models.csproj" />
+		<ProjectReference Include="..\OTPService.Example.Services\OTPService.Example.Services.csproj" />
 	</ItemGroup>
 
 </Project>

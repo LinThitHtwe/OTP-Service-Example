@@ -3,6 +3,8 @@ using OTPService.Example.Api;
 using OTPService.Example.Api.AppDbContextModels;
 using OTPService.Example.Models.Features.Signin;
 using OTPService.Example.Models.Features.Signup;
+using OTPService.Example.Services.Features.FluentEmail;
+using OTPService.Example.Services.Features.SendMail;
 using OTPService.Example.Services.Features.Signin;
 using OTPService.Example.Services.Features.Signup;
 
@@ -12,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddFluentEmail();
 
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
@@ -23,6 +27,7 @@ ServiceLifetime.Transient);
 
 builder.AddSigninService();
 builder.AddSignupService();
+builder.AddSendMailService();
 
 var app = builder.Build();
 

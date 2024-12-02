@@ -1,14 +1,14 @@
 ﻿using Effortless.Net.Encryption;
 using Newtonsoft.Json;
 
-namespace OTPService.Example.Services;
+namespace OTPService.Example.Services.Helpers;
 
 public static class EncryptionHelpers
 {
     private static byte[] key = Convert.FromBase64String("pY3RDfDlt7xwAnKVu/MhiQxM5u//oe4jt9L+rhyECSY=");
     private static byte[] iv = Convert.FromBase64String("C76NDuPRRtP20EMiYMyHTQ==");
 
-    public static string ToEncrypt(this string plainText) 
+    public static string ToEncrypt(this string plainText)
     {
         string encrypted = Strings.Encrypt(plainText, key, iv);
         return encrypted;

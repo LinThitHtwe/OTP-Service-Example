@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using OTPService.Example.Database.AppDbContextModels;
 
 namespace OTPService.Example.Api.AppDbContextModels;
 
