@@ -13,7 +13,7 @@ public class SigninService
         _db = db;
     }
 
-    public async Task<Result<SigninResponseModel>> SigninAsync(SigninRequestModel requestModel)
+    public async Task<Result<SigninResponseModel>> Signin(SigninRequestModel requestModel)
     {
         var user = await _db.Users
                  .FirstOrDefaultAsync(u => u.Email == requestModel.Email);

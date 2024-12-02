@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using OTPService.Example.Api;
 using OTPService.Example.Api.AppDbContextModels;
+using OTPService.Example.Models.Features.OTP;
 using OTPService.Example.Models.Features.Signin;
 using OTPService.Example.Models.Features.Signup;
 using OTPService.Example.Services.Features.FluentEmail;
+using OTPService.Example.Services.Features.OTPVerify;
 using OTPService.Example.Services.Features.SendMail;
 using OTPService.Example.Services.Features.Signin;
 using OTPService.Example.Services.Features.Signup;
@@ -28,6 +30,7 @@ ServiceLifetime.Transient);
 builder.AddSigninService();
 builder.AddSignupService();
 builder.AddSendMailService();
+builder.AddOTPVerifyService();
 
 var app = builder.Build();
 
@@ -48,13 +51,23 @@ app.MapPost("/signup",async (SignupService signupService,SignupRequestModel sign
 .WithName("Signup")
 .WithOpenApi();
 
+app.MapPost("/verify-signup-otp", async (SignupService signupService, VerifySignupOTPRequestModel verifySignupOTPRequest) =>
+{
+    var response = await signupService.VerifySignupOTP(verifySignupOTPRequest);
+    return BaseResponseHelper.Execute(response);
+})
+.WithName("VerifySignupOTP")
+.WithOpenApi();
+
 app.MapPost("/signin", async (SigninService signinService, SigninRequestModel signinRequestModel) =>
 {
-    var response = await signinService.SigninAsync(signinRequestModel);
+    var response = await signinService.Signin(signinRequestModel);
     return BaseResponseHelper.Execute(response);
 })
 .WithName("Signin")
 .WithOpenApi();
+
+
 
 
 app.Run();

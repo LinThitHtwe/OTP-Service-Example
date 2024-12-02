@@ -6,10 +6,10 @@ public enum UserStatusEnum
     Varified
 }
 
-public enum OPTStatusEnum
+public enum OTPStatusEnum
 {
     Expired,
     Invalid,
     Active,
-    Close
+    Used
 }
