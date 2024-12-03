@@ -39,8 +39,8 @@ public class ResendOTPService
 
             await _db.Otps
             .Where(otp => otp.UserId == user.Id
-                && otp.CreatedTime >= DateTime.Now.AddMinutes(-5) 
-                && otp.CreatedTime <= DateTime.Now
+                //&& otp.CreatedTime >= DateTime.Now.AddMinutes(-5) 
+                //&& otp.CreatedTime <= DateTime.Now
                 && !invalidStatuses.Contains(otp.Status))
                 .ExecuteUpdateAsync
                 (update => update.SetProperty

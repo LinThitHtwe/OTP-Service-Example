@@ -20,14 +20,14 @@ public class SigninService
 
         if (user == null)
         {
-            return Result<SigninResponseModel>.ValidationError("");
+            return Result<SigninResponseModel>.ValidationError("Invalid Email or Password");
         }
 
         bool isPasswordValid = PasswordHasher.VerifyPassword(requestModel.Password, user.Password);
 
         if (!isPasswordValid)
         {
-            return Result<SigninResponseModel>.ValidationError("");
+            return Result<SigninResponseModel>.ValidationError("Invalid Email or Password");
         }
 
         SigninResponseModel signin = new()

@@ -25,7 +25,7 @@ public class SignupService
 
             if (isEmailExist)
             {
-                return Result<SignupResponseModel>.ValidationError("");
+                return Result<SignupResponseModel>.ValidationError("User already exists");
             }
 
             User user = new()
@@ -73,6 +73,11 @@ public class SignupService
             }
 
             var user = await _db.Users.FirstOrDefaultAsync(x => x.Id == verifySignupOTPModel.UserId);
+
+            if(user!.Status == nameof(UserStatusEnum.Varified))
+            {
+                return Result<VerifySignupOTPResponseModel>.ValidationError("User already verified");
+            }
 
             user!.Status = nameof(UserStatusEnum.Varified);
             _db.Entry(user).State = EntityState.Modified;
