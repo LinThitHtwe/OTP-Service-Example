@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "1c0db194-e601-4f52-9756-e5571187bc2b",
+		"name": "OTPService.Example",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28078103"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Lin Thit\",\r\n  \"email\": \"linthit2745@gmail.com\",\r\n  \"password\": \"Test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7119/signup",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7119",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"linthit2745@gmail.com\",\r\n  \"password\": \"Test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7119/signin",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7119",
+					"path": [
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VerifySignupOTP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 15,\r\n  \"otpCode\": \"698434\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7119/verify-signup-otp",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7119",
+					"path": [
+						"verify-signup-otp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ResentOTP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userId\": 15,\r\n  \"email\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7119/resent-otp",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7119",
+					"path": [
+						"resent-otp"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
